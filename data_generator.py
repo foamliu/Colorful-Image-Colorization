@@ -110,7 +110,7 @@ def split_data():
     num_samples = len(names)  # 1341430
     print('num_samples: ' + str(num_samples))
 
-    num_train_samples = int(num_samples * 0.8)
+    num_train_samples = int(num_samples * 0.992)
     print('num_train_samples: ' + str(num_train_samples))
     num_valid_samples = num_samples - num_train_samples
     print('num_valid_samples: ' + str(num_valid_samples))
