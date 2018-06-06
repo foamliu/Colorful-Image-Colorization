@@ -2,19 +2,10 @@ import multiprocessing
 
 import cv2 as cv
 import keras.backend as K
-import numpy as np
 from tensorflow.python.client import device_lib
-
-# Load the color prior factor that encourages rare colors
-prior_factor = np.load("data/prior_factor.npy")
 
 
 def categorical_crossentropy_color(y_true, y_pred):
-    weights = prior_factor
-
-    # multiply y_true by weights
-    y_true = y_true * weights
-
     cross_ent = K.categorical_crossentropy(y_pred, y_true)
     cross_ent = K.mean(cross_ent, axis=-1)
 
