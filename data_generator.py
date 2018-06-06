@@ -1,4 +1,6 @@
 import os
+import random
+from random import shuffle
 
 import cv2 as cv
 import numpy as np
@@ -7,8 +9,7 @@ from keras.utils import Sequence
 
 from config import batch_size, img_rows, img_cols, nb_neighbors
 
-train_images_folder = 'data/instance-level_human_parsing/Training/Images'
-valid_images_folder = 'data/instance-level_human_parsing/Validation/Images'
+image_folder = '/mnt/code/ImageNet-Downloader/image/resized'
 
 
 def get_soft_encoding(image_ab, nn_finder, nb_q):
@@ -22,7 +23,7 @@ def get_soft_encoding(image_ab, nn_finder, nb_q):
     sigma_neighbor = 5
     wts = np.exp(-dist_neighb ** 2 / (2 * sigma_neighbor ** 2))
     wts = wts / np.sum(wts, axis=1)[:, np.newaxis]
-    # format the target
+    # format the tar get
     y = np.zeros((ab.shape[0], nb_q))
     idx_pts = np.arange(ab.shape[0])[:, np.newaxis]
     y[idx_pts, idx_neigh] = wts
@@ -35,13 +36,11 @@ class DataGenSequence(Sequence):
         self.usage = usage
 
         if usage == 'train':
-            id_file = 'data/instance-level_human_parsing/Training/train_id.txt'
-            self.images_folder = train_images_folder
+            names_file = 'train_names.txt'
         else:
-            id_file = 'data/instance-level_human_parsing/Validation/val_id.txt'
-            self.images_folder = valid_images_folder
+            names_file = 'valid_names.txt'
 
-        with open(id_file, 'r') as f:
+        with open(names_file, 'r') as f:
             self.names = f.read().splitlines()
 
         np.random.shuffle(self.names)
@@ -66,12 +65,12 @@ class DataGenSequence(Sequence):
 
         for i_batch in range(length):
             name = self.names[i]
-            filename = os.path.join(self.images_folder, name + '.jpg')
+            filename = os.path.join(image_folder, name + '.jpg')
             # b: 0 <=b<=255, g: 0 <=g<=255, r: 0 <=r<=255.
             bgr = cv.imread(filename)
-            bgr = cv.resize(bgr, (img_rows, img_cols), cv.INTER_CUBIC)
+            # bgr = cv.resize(bgr, (img_rows, img_cols), cv.INTER_CUBIC)
             gray = cv.imread(filename, 0)
-            gray = cv.resize(gray, (img_rows, img_cols), cv.INTER_CUBIC)
+            # gray = cv.resize(gray, (img_rows, img_cols), cv.INTER_CUBIC)
             lab = cv.cvtColor(bgr, cv.COLOR_BGR2LAB)
             x = gray / 255.
 
@@ -103,3 +102,32 @@ def train_gen():
 
 def valid_gen():
     return DataGenSequence('valid')
+
+
+def split_data():
+    names = [f for f in os.listdir(image_folder) if f.lower().endswith('.jpg')]
+
+    num_samples = len(names)  # 1341430
+    print('num_samples: ' + str(num_samples))
+
+    num_train_samples = int(num_samples * 0.8)
+    print('num_train_samples: ' + str(num_train_samples))
+    num_valid_samples = num_samples - num_train_samples
+    print('num_valid_samples: ' + str(num_valid_samples))
+    valid_names = random.sample(names, num_valid_samples)
+    train_names = [n for n in names if n not in valid_names]
+    shuffle(valid_names)
+    shuffle(train_names)
+
+    # with open('names.txt', 'w') as file:
+    #     file.write('\n'.join(names))
+
+    with open('valid_names.txt', 'w') as file:
+        file.write('\n'.join(valid_names))
+
+    with open('train_names.txt', 'w') as file:
+        file.write('\n'.join(train_names))
+
+
+if __name__ == '__main__':
+    split_data()
