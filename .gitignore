@@ -1,0 +1,7 @@
+.idea/
+__pycache__/
+custom_layers/__pycache__/
+data/instance-level_human_parsing.tar.gz
+data/instance-level_human_parsing/
+models/
+logs/
