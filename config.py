@@ -1,6 +1,6 @@
 img_rows, img_cols = 256, 256
 channel = 3
-batch_size = 128
+batch_size = 160
 epochs = 10000
 patience = 50
 num_train_samples = 884560
