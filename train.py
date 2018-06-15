@@ -8,7 +8,7 @@ from keras.utils import multi_gpu_model
 from config import patience, epochs, num_train_samples, num_valid_samples, batch_size
 from data_generator import train_gen, valid_gen
 from model import build_encoder_decoder
-from utils import get_available_gpus, categorical_crossentropy_color
+from utils import get_available_gpus
 
 if __name__ == '__main__':
     # Parse arguments
@@ -52,7 +52,7 @@ if __name__ == '__main__':
         if pretrained_path is not None:
             new_model.load_weights(pretrained_path)
 
-    adam = keras.optimizers.Adam(lr=3e-5, beta_1=0.9, beta_2=0.99, epsilon=1e-8)
+    adam = keras.optimizers.Nadam(lr=1e-5, beta_1=0.9, beta_2=0.99, epsilon=1e-8)
     # decoder_target = tf.placeholder(dtype='float32', shape=(None, None, None, None))
     new_model.compile(optimizer=adam, loss='categorical_crossentropy')
 
@@ -70,5 +70,5 @@ if __name__ == '__main__':
                             verbose=1,
                             callbacks=callbacks,
                             use_multiprocessing=True,
-                            workers=4
+                            workers=8
                             )
