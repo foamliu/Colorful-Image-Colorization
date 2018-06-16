@@ -52,7 +52,7 @@ if __name__ == '__main__':
         if pretrained_path is not None:
             new_model.load_weights(pretrained_path)
 
-    adam = keras.optimizers.Nadam(lr=1e-5, beta_1=0.9, beta_2=0.99, epsilon=1e-8)
+    adam = keras.optimizers.Nadam(lr=3e-6, beta_1=0.9, beta_2=0.99, epsilon=1e-8)
     # decoder_target = tf.placeholder(dtype='float32', shape=(None, None, None, None))
     new_model.compile(optimizer=adam, loss='categorical_crossentropy')
 
