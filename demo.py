@@ -8,7 +8,7 @@ import numpy as np
 import sklearn.neighbors as nn
 
 from config import img_rows, img_cols
-from config import nb_neighbors, T
+from config import nb_neighbors, T, epsilon
 from model import build_encoder_decoder
 
 if __name__ == '__main__':
@@ -67,7 +67,7 @@ if __name__ == '__main__':
         X_colorized = X_colorized.reshape((h * w, nb_q))
 
         # Reweight probas
-        X_colorized = np.exp(np.log(X_colorized) / T)
+        X_colorized = np.exp(np.log(X_colorized + epsilon) / T)
         X_colorized = X_colorized / np.sum(X_colorized, 1)[:, np.newaxis]
 
         # Reweighted
