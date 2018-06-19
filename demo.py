@@ -20,9 +20,9 @@ if __name__ == '__main__':
 
     print(model.summary())
 
-    test_images_folder = 'data/instance-level_human_parsing/Testing/Images'
-    id_file = 'data/instance-level_human_parsing/Testing/test_id.txt'
-    with open(id_file, 'r') as f:
+    image_folder = '/mnt/code/ImageNet-Downloader/image/resized'
+    names_file = 'valid_names.txt'
+    with open(names_file, 'r') as f:
         names = f.read().splitlines()
 
     samples = random.sample(names, 10)
@@ -41,7 +41,7 @@ if __name__ == '__main__':
 
     for i in range(len(samples)):
         image_name = samples[i]
-        filename = os.path.join(test_images_folder, image_name + '.jpg')
+        filename = os.path.join(image_folder, image_name + '.jpg')
         print('Start processing image: {}'.format(filename))
         # b: 0 <=b<=255, g: 0 <=g<=255, r: 0 <=r<=255.
         bgr = cv.imread(filename)
