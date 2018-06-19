@@ -41,7 +41,7 @@ if __name__ == '__main__':
 
     for i in range(len(samples)):
         image_name = samples[i]
-        filename = os.path.join(image_folder, image_name + '.jpg')
+        filename = os.path.join(image_folder, image_name)
         print('Start processing image: {}'.format(filename))
         # b: 0 <=b<=255, g: 0 <=g<=255, r: 0 <=r<=255.
         bgr = cv.imread(filename)
