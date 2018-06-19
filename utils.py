@@ -10,9 +10,12 @@ prior_factor = np.load("data/prior_factor.npy")
 
 
 def categorical_crossentropy_color(y_true, y_pred):
-    n, h, w, q = K.int_shape(y_true)
-    y_true = K.reshape(y_true, (n * h * w, q))
-    y_pred = K.reshape(y_pred, (n * h * w, q))
+    # n, h, w, q = K.shape(y_true)
+    q = 313
+    # y_true = K.reshape(y_true, (n * h * w, q))
+    # y_pred = K.reshape(y_pred, (n * h * w, q))
+    y_true = K.reshape(y_true, (-1, q))
+    y_pred = K.reshape(y_pred, (-1, q))
 
     idx_max = np.argmax(y_true, axis=1)
     weights = prior_factor[idx_max]
