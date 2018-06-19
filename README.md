@@ -1,7 +1,5 @@
 # Colorful Image Colorization
 
-![apm](https://img.shields.io/apm/l/vim-mode.svg)
-
 This repository is to repeat Colorful Image Colorization with Color-Net.
 
 ## Dependencies
