@@ -13,7 +13,8 @@ from scipy.signal import gaussian, convolve
 def load_data(size=64):
     image_folder = '/mnt/code/ImageNet-Downloader/image/resized'
     names = [f for f in os.listdir(image_folder) if f.lower().endswith('.jpg')]
-    num_samples = len(names)
+    np.random.shuffle(names)
+    num_samples = 100000
     X_ab = np.empty((num_samples, size, size, 2))
     for i in range(num_samples):
         name = names[i]
