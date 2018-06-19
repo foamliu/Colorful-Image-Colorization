@@ -11,4 +11,4 @@ epsilon_sqr = epsilon ** 2
 
 nb_neighbors = 5
 # temperature parameter T
-T = .14
+T = 0.38
