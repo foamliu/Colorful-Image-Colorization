@@ -7,6 +7,7 @@ from tensorflow.python.client import device_lib
 
 # Load the color prior factor that encourages rare colors
 prior_factor = np.load("data/prior_factor.npy")
+prior_factor = prior_factor.astype(np.float32)
 
 
 def categorical_crossentropy_color(y_true, y_pred):
