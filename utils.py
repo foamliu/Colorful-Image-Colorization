@@ -17,6 +17,7 @@ def categorical_crossentropy_color(y_true, y_pred):
 
     idx_max = K.argmax(y_true, axis=1)
     weights = K.gather(prior_factor, idx_max)
+    weights = K.reshape(weights, (-1, 1))
 
     # multiply y_true by weights
     y_true = y_true * weights
