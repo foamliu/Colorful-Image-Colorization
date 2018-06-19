@@ -2,8 +2,8 @@ import multiprocessing
 
 import cv2 as cv
 import keras.backend as K
+import numpy as np
 from tensorflow.python.client import device_lib
-
 
 # Load the color prior factor that encourages rare colors
 prior_factor = np.load("data/prior_factor.npy")
