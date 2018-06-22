@@ -1,6 +1,6 @@
 # Colorful Image Colorization
 
-This repository is to repeat Colorful Image Colorization with Color-Net.
+This repository is to repeat [Colorful Image Colorization](https://arxiv.org/abs/1603.08511).
 
 ## Dependencies
 - [NumPy](http://docs.scipy.org/doc/numpy-1.10.1/user/install.html)
