@@ -14,7 +14,7 @@ from model import build_encoder_decoder
 if __name__ == '__main__':
     channel = 3
 
-    model_weights_path = 'models/model.08-5.7380.hdf5'
+    model_weights_path = 'models/model.21-5.7451.hdf5'
     model = build_encoder_decoder()
     model.load_weights(model_weights_path)
 
