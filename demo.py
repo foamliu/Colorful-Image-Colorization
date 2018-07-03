@@ -14,7 +14,7 @@ from model import build_encoder_decoder
 if __name__ == '__main__':
     channel = 3
 
-    model_weights_path = 'models/model.21-5.7451.hdf5'
+    model_weights_path = 'models/model.08-5.7380.hdf5'
     model = build_encoder_decoder()
     model.load_weights(model_weights_path)
 
@@ -35,9 +35,6 @@ if __name__ == '__main__':
 
     # Fit a NN to q_ab
     nn_finder = nn.NearestNeighbors(n_neighbors=nb_neighbors, algorithm='ball_tree').fit(q_ab)
-
-    # Load the color prior factor that encourages rare colors
-    # prior_factor = np.load("data/prior_factor.npy")
 
     for i in range(len(samples)):
         image_name = samples[i]
