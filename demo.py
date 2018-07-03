@@ -9,13 +9,13 @@ import sklearn.neighbors as nn
 
 from config import img_rows, img_cols
 from config import nb_neighbors, T, epsilon
-from model import build_encoder_decoder
+from model import build_model
 
 if __name__ == '__main__':
     channel = 3
 
     model_weights_path = 'models/model.08-5.7380.hdf5'
-    model = build_encoder_decoder()
+    model = build_model()
     model.load_weights(model_weights_path)
 
     print(model.summary())
