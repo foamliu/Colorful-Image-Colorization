@@ -8,7 +8,7 @@ import numpy as np
 import sklearn.neighbors as nn
 
 from config import img_rows, img_cols
-from config import nb_neighbors, T
+from config import nb_neighbors, T, epsilon
 from model import build_model
 
 if __name__ == '__main__':
