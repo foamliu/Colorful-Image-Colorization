@@ -52,7 +52,7 @@ if __name__ == '__main__':
         if pretrained_path is not None:
             new_model.load_weights(pretrained_path)
 
-    adam = keras.optimizers.Adam(lr=1e-5, decay=1e-6, momentum=0.9, nesterov=True)
+    adam = keras.optimizers.Adam(lr=1e-5, beta_1=0.9, beta_2=0.99, epsilon=1e-08)
     new_model.compile(optimizer=adam, loss=categorical_crossentropy_color)
 
     print(new_model.summary())
