@@ -52,8 +52,8 @@ if __name__ == '__main__':
         if pretrained_path is not None:
             new_model.load_weights(pretrained_path)
 
-    adam = keras.optimizers.Adam(lr=1e-5, beta_1=0.9, beta_2=0.99, epsilon=1e-08)
-    new_model.compile(optimizer=adam, loss=categorical_crossentropy_color)
+    sgd = keras.optimizers.SGD(lr=0.001, momentum=0.9, nesterov=True, clipnorm=5.)
+    new_model.compile(optimizer=sgd, loss='categorical_crossentropy')
 
     print(new_model.summary())
 
